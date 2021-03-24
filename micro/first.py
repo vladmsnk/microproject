@@ -1,5 +1,8 @@
 import json
 import pandas as pd
+from datetime import datetime
+
+
 with open('ZulipStats.json') as zulip:
     data1 = json.load(zulip)
 with open('GitStats.json') as Git:
@@ -10,12 +13,18 @@ with open('JitsiSession.json') as JitsiSession:
     data4 = json.load(JitsiSession)
 
 
-
 dfzulip = pd.DataFrame(data1)
 
 my_data = dfzulip[dfzulip['email'] =='vyumoiseenkov@miem.hse.ru']
 zulip_messages = my_data.iloc[0]['messages'] #type - dict
-timez =[]
+
+timezulip =[]
+
 for i in range(len(zulip_messages)):
-    timez.append(zulip_messages[i]['timestamp'])
-print(timez)
+    timezulip.append(zulip_messages[i]['timestamp'][:19].replace('T',' '))
+    timezulip[i] = datetime.strptime(timezulip[i],'%Y-%m-%d %H:%M:%S' )
+# for i in range(len(timez))
+# date_time_obj = datetime.strptime(timez[0],'%Y-%m-%d')
+# print(timezulip)
+# print(zulip_messages)
+print(type(timezulip[0]))

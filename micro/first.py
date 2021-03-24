@@ -18,16 +18,26 @@ with open('JitsiSession.json') as JitsiSession:
 
 
 dfzulip = pd.DataFrame(data1)
-
 my_data = dfzulip[dfzulip['email'] =='vyumoiseenkov@miem.hse.ru']
 zulip_messages = my_data.iloc[0]['messages'] #type - dict
 
+dfgit = pd.DataFrame(data2)
+my_data2 = dfgit[dfgit['email'] == 'vyumoiseenkov@miem.hse.ru']
+
+
+
+
 timezulip =[]
 # timezulip.append('2021-01-17T22:44:45')
-
 for i in range(len(zulip_messages)):
     timezulip.append(zulip_messages[i]['timestamp'][:19].replace('T',' '))
     timezulip[i] = datetime.strptime(timezulip[i],'%Y-%m-%d %H:%M:%S' )
+
+# timegit = []
+# for j in range(len()):
+
+
+
 # a= '2021-01-17T22:44:45'
 # a = a.replace('T',' ')
 # timezulip.append(datetime.strptime(a,'%Y-%m-%d %H:%M:%S'))
@@ -39,6 +49,7 @@ for i in range(len(zulip_messages)):
 
 new_array = list(map(lambda x: x.date().month,timezulip))
 # print(new_array)
+
 c = Counter()
 for word in new_array:
     c[word]+=1
@@ -46,7 +57,6 @@ x = list(c.keys())
 y =  list(c.values())
 labels = ['January','February','March']
 range = np.arange(1,4,1)
-
 
 plt.scatter(x,y,color = 'r',label = 'Zulip')
 plt.legend()

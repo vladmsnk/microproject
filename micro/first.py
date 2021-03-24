@@ -1,6 +1,10 @@
 import json
 import pandas as pd
 from datetime import datetime
+import numpy as np
+import matplotlib.pyplot as plt
+
+from collections import Counter
 
 
 with open('ZulipStats.json') as zulip:
@@ -19,12 +23,37 @@ my_data = dfzulip[dfzulip['email'] =='vyumoiseenkov@miem.hse.ru']
 zulip_messages = my_data.iloc[0]['messages'] #type - dict
 
 timezulip =[]
+# timezulip.append('2021-01-17T22:44:45')
 
 for i in range(len(zulip_messages)):
     timezulip.append(zulip_messages[i]['timestamp'][:19].replace('T',' '))
     timezulip[i] = datetime.strptime(timezulip[i],'%Y-%m-%d %H:%M:%S' )
-# for i in range(len(timez))
-# date_time_obj = datetime.strptime(timez[0],'%Y-%m-%d')
+# a= '2021-01-17T22:44:45'
+# a = a.replace('T',' ')
+# timezulip.append(datetime.strptime(a,'%Y-%m-%d %H:%M:%S'))
+
 # print(timezulip)
 # print(zulip_messages)
-print(type(timezulip[0]))
+# print(timezulip[0].date())
+
+
+new_array = list(map(lambda x: x.date().month,timezulip))
+# print(new_array)
+c = Counter()
+for word in new_array:
+    c[word]+=1
+x = list(c.keys())
+y =  list(c.values())
+labels = ['January','February','March']
+range = np.arange(1,4,1)
+
+
+plt.scatter(x,y,color = 'r',label = 'Zulip')
+plt.legend()
+plt.xlabel('Date')
+plt.xticks(np.arange(1,5,1))
+plt.ylim(0,10)
+plt.grid()
+plt.xticks(range,labels = labels)
+plt.ylabel('activity Count')
+plt.show()

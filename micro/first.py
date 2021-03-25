@@ -23,7 +23,11 @@ def divide_chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i + n]
 
-
+def retlen(lst):
+    a =[]
+    for i in range(len(lst)):
+        a.append(len(lst[i]))
+    return a
 # zulip
 dfzulip = pd.DataFrame(data1)
 my_data = dfzulip[dfzulip['email'] =='vyumoiseenkov@miem.hse.ru']
@@ -53,19 +57,17 @@ begin = np.array(list(map(lambda x: int(x[:5].replace(':','')),mydate['begin']))
 end = np.array(list(map(lambda x: int(x[:5].replace(':','')),mydate['end'])))
 for_sec_array = end - begin
 for_sec_array = for_sec_array[for_sec_array > 40].tolist()
-
 new2 = list(divide_chunks(list(for_sec_array),math.ceil(len(for_sec_array)/3)))
+yjits = retlen(new2)
 
-# b = list(divide_chunks(my_list, 4))
-# print (b)
-# yjits = list(divide_chunks(my_list, math.ceil(len(for_sec_array)/3)))
 # print(yjits)
-# plt.scatter(x,y,color = 'r',label = 'Zulip')
-# plt.legend()
-# plt.xlabel('Date')
-# plt.xticks(np.arange(1,5,1))
-# plt.ylim(0,10)
-# plt.grid()
-# plt.xticks(rang,labels = labels)
-# plt.ylabel('activity Count')
-# plt.show()
+plt.scatter(x,y,color = 'r',label = 'Zulip')
+plt.scatter(rang,yjits,color ='g',label='Jitsi')
+plt.legend()
+plt.xlabel('Date')
+plt.xticks(np.arange(1,5,1))
+plt.ylim(0,10)
+plt.grid()
+plt.xticks(rang,labels = labels)
+plt.ylabel('activity Count')
+plt.show()

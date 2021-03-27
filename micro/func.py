@@ -1,4 +1,5 @@
 import json
+
 import pandas as pd
 from datetime import datetime
 import numpy as np
@@ -26,7 +27,7 @@ def get_zulip_info(filename:str,email: str):
     c = Counter()
     for word in new_array:
         c[word] += 1
-    return (c.keys(),c.values()) # x,y
+    return (c.keys(),c.values()) # c.keys - month, c.values - activity
 
 def get_git_intfo(filename: str, email: str):
     pass
@@ -36,3 +37,6 @@ def get_jitsi_session_info(filename: str, email: str):
 
 def get_jitsi_classes_info(filename: str, email: str):
     pass
+
+
+print(get_zulip_info('ZulipStats.json','vyumoiseenkov@miem.hse.ru'))

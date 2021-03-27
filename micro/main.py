@@ -1,9 +1,11 @@
 import abc
 import matplotlib.pyplot as plt
+
 '''
 The module has classes of Activities in different programmed
  which were used on project seminar
- '''
+'''
+
 class Shape(abc.ABC):
     """
     class checking the possesing of acount
@@ -40,18 +42,21 @@ class Zulip(Shape):
        :param mention_amount: the amount of users' mentions
        :param email: the user's email
     """
-    def __init__(self, message_amount: int, mention_amount: int, email:str) -> None:
-            self.message_amount = mention_amount
-            self.mention_amount = mention_amount
+    def __init__(self, message_amount:int, month :int, email:str) -> None:
+            self.message_amount = message_amount
+            self.month = month
+            # self.mention_amount = mention_amount
             self.email = email
 
-    def message(self) -> int:
+    def message(self) -> list:
         return self.message_amount
-
-    def mention(self)-> int:
-        return self.mention_amount
+    def months(self):
+        return self.month
     def exist(self):
         return True if len(self.email) > 0 else False
+
+    # def __str__(self) -> str:
+    #     return f"({self.message_amount})"
 
 class  Plot():
     def __init__(self,xaxis: int, yaxis: int) -> None:

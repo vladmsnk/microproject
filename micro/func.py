@@ -53,10 +53,16 @@ def get_jitsi_lecture_info(filename: str, email: str):
     return (new_x,foret)
 
 def get_git_intfo(filename: str, email: str):
-    pass
-
+    with open(filename) as dfgit:
+        myd = dfgit[dfgit['email'] == 'vyumoiseenkov@miem.hse.ru']
+    a = myd['commits_stats'].tolist()[0]
+    arData = []
+    arCommit = []
+    for i in range(len(a)):
+        arData.append(a[i]['beginDate'][4:7])
+        arCommit.append(a[i]['commitCount'])
+    return(arCommit,list(range(1,len(arData) +1)))
 def get_jitsi_poster_info(filename: str, email: str):
-
     pass
 
 

@@ -37,7 +37,7 @@ class Git(Shape):
 
 class Zulip(Shape):
     """
-       Class contains the amount of users' messages and their mentions
+       Class contains the amount of users' messages
        :param message_amount: the amount of users' messages
        :param mention_amount: the amount of users' mentions
        :param email: the user's email

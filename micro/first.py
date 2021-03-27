@@ -1,13 +1,12 @@
 import json
+import main
 import pandas as pd
 from datetime import datetime
 import numpy as np
 import math
-
 import matplotlib.pyplot as plt
 
 from collections import Counter
-
 
 with open('ZulipStats.json') as zulip:
     data1 = json.load(zulip)
@@ -47,27 +46,31 @@ for word in new_array:
     c[word]+=1
 x = list(c.keys())
 y =  list(c.values())
+
+print(x)
+
 labels = ['January','February','March']
 rang = np.arange(1,4,1)
 
-# jitsi
-dfjitsi = pd.DataFrame(data4)
-mydate = dfjitsi[dfjitsi['username'] == 'vyumoiseenkov@miem.hse.ru']
-begin = np.array(list(map(lambda x: int(x[:5].replace(':','')),mydate['begin'])))
-end = np.array(list(map(lambda x: int(x[:5].replace(':','')),mydate['end'])))
-for_sec_array = end - begin
-for_sec_array = for_sec_array[for_sec_array > 40].tolist()
-new2 = list(divide_chunks(list(for_sec_array),math.ceil(len(for_sec_array)/3)))
-yjits = retlen(new2)
 
-# print(yjits)
-plt.scatter(x,y,color = 'r',label = 'Zulip')
-plt.scatter(rang,yjits,color ='g',label='Jitsi')
-plt.legend()
-plt.xlabel('Date')
-plt.xticks(np.arange(1,5,1))
-plt.ylim(0,10)
-plt.grid()
-plt.xticks(rang,labels = labels)
-plt.ylabel('activity Count')
-plt.show()
+# # jitsi
+# dfjitsi = pd.DataFrame(data4)
+# mydate = dfjitsi[dfjitsi['username'] == 'vyumoiseenkov@miem.hse.ru']
+# begin = np.array(list(map(lambda x: int(x[:5].replace(':','')),mydate['begin'])))
+# end = np.array(list(map(lambda x: int(x[:5].replace(':','')),mydate['end'])))
+# for_sec_array = end - begin
+# for_sec_array = for_sec_array[for_sec_array > 40].tolist()
+# new2 = list(divide_chunks(list(for_sec_array),math.ceil(len(for_sec_array)/3)))
+# yjits = retlen(new2)
+#
+# # print(yjits)
+# plt.scatter(x,y,color = 'r',label = 'Zulip')
+# plt.scatter(rang,yjits,color ='g',label='Jitsi')
+# plt.legend()
+# plt.xlabel('Date')
+# plt.xticks(np.arange(1,5,1))
+# plt.ylim(0,10)
+# plt.grid()
+# plt.xticks(rang,labels = labels)
+# plt.ylabel('activity Count')
+# plt.show()

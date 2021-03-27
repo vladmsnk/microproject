@@ -5,9 +5,12 @@ from datetime import datetime
 import numpy as np
 import math
 from collections import Counter
+from itertools import groupby
 
 
-
+def divide_chunks(l, n):
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
 
 def get_zulip_info(filename:str,email: str):
     """
@@ -29,14 +32,33 @@ def get_zulip_info(filename:str,email: str):
         c[word] += 1
     return (c.keys(),c.values()) # c.keys - month, c.values - activity
 
+def get_jitsi_lecture_info(filename: str, email: str):
+    with open(filename) as jitsi:
+        datajitsi = pd.DataFrame(json.load(jitsi))
+    my_data = datajitsi[datajitsi['username'] == email]
+    begin = np.array(list(map(lambda x: int(x[:5].replace(':', '')), my_data['begin'])))
+    end = np.array(list(map(lambda x: int(x[:5].replace(':', '')), my_data['end'])))
+    newar = end - begin
+    date = list(my_data['date'].values)
+    ind = np.where(newar > 30)[0].tolist()
+    final_dates = []
+    for i in range(len(date)):
+        if ind.count(i) and date[i] not in final_dates:
+            final_dates.append(date[i])
+
+    partdate = np.array(list(map(lambda x: int(x[5:7].replace('-', '')), my_data['date'])))
+    new_x = [el for el, _ in groupby(partdate)]
+    dev_final_dates = list(divide_chunks(final_dates, math.ceil(len(final_dates) / len(new_x))))
+    foret = list(map(lambda x: len(x), dev_final_dates))
+    return (new_x,foret)
+
 def get_git_intfo(filename: str, email: str):
     pass
 
-def get_jitsi_session_info(filename: str, email: str):
+def get_jitsi_poster_info(filename: str, email: str):
+
     pass
 
-def get_jitsi_classes_info(filename: str, email: str):
-    pass
 
 
-print(get_zulip_info('ZulipStats.json','vyumoiseenkov@miem.hse.ru'))
+

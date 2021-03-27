@@ -42,7 +42,7 @@ class Zulip(Shape):
        :param mention_amount: the amount of users' mentions
        :param email: the user's email
     """
-    def __init__(self, message_amount:int, month :int, email:str) -> None:
+    def __init__(self, message_amount:list, month :list, email:str) -> None:
             self.message_amount = message_amount
             self.month = month
             # self.mention_amount = mention_amount
@@ -57,6 +57,15 @@ class Zulip(Shape):
 
     # def __str__(self) -> str:
     #     return f"({self.message_amount})"
+class Jitsi(Shape):
+    def __init__(self,lesson_amount: list, month : list, email: str) ->None:
+        self.lesson_amount = lesson_amount
+        self.month = month
+        self.email = email
+    def lesson(self) -> list:
+        return self.lesson_amount
+    def exist(self):
+        return True if len(self.email) > 0 else False
 
 class  Plot():
     def __init__(self,xaxis: int, yaxis: int) -> None:

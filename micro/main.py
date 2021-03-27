@@ -25,13 +25,15 @@ class Git(Shape):
     :param email: the user's email
     """
 
-    def __init__(self, commit_amount: int, email: str ) -> None:
+    def __init__(self, commit_amount: list ,month: list, email: str ) -> None:
         self.commit_amount = commit_amount
         self.email = email
+        self.month = month
 
-    def commits(self)->int:
+    def commit(self)->int:
         return self.commit_amount
-
+    def months(self):
+        return self.month
     def exist(self):
         return True if len(self.email) > 0 else False
 
@@ -64,13 +66,19 @@ class Jitsi(Shape):
         self.email = email
     def lesson(self) -> list:
         return self.lesson_amount
+    def months(self):
+        return self.month
     def exist(self):
         return True if len(self.email) > 0 else False
-
+    def fulllesson(self) -> int:
+        sum = 0
+        for i in range(self.lesson_amount):
+            sum+=self.lesson_amount[i]
+        return sum
 class  Plot():
     def __init__(self,xaxis: int, yaxis: int) -> None:
         self.xaxis = xaxis
         self.yaxis = yaxis
 
     def plotting(self,color:str,label:str)->None:
-        plt.scatter(self.xaxis,self.yaxis,color = color, label = label)
+        plt.plot(self.xaxis,self.yaxis,color = color, label = label)

@@ -36,6 +36,8 @@ class Git(Shape):
         return self.month
     def exist(self):
         return True if len(self.email) > 0 else False
+    def madecommit(self) -> bool:
+        return True if self.commit_amount.count(self.commit_amount!=0) > 0 else False
 
 class Zulip(Shape):
     """
@@ -56,6 +58,8 @@ class Zulip(Shape):
         return self.month
     def exist(self):
         return True if len(self.email) > 0 else False
+    def madepost(self):
+        return True if self.message_amount != [] else False
 
     # def __str__(self) -> str:
     #     return f"({self.message_amount})"

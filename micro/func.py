@@ -65,8 +65,8 @@ def get_git_info(filename: str, email: str):
     arCommit = arCommit[1:]
     return(list(range(1,len(arData))),arCommit)
 def get_grade(x,y,z,h,l):
-    return x+y+z+h+0.5*l
-
+    gr = x+y+z+h+0.5*l
+    return math.ceil(gr) if gr % 10 >=0.5 and gr < 10 else round(gr) if gr % 10 < 0.5 and gr < 10  else 10
 def get_jitsi_poster_info(filename: str, email: str):
     pass
 
